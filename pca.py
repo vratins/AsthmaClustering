@@ -32,7 +32,7 @@ def sklearn_pca(X, D):
 
 
 if __name__ == '__main__':
-    X = pd.read_csv("Data/BAL.txt", sep = '\t', skiprows= range(1001, 45015))
+    X = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', skiprows= range(1001, 45015))
     print(X)
     D = 2
 
