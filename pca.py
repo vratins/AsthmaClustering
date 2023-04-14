@@ -46,9 +46,10 @@ if __name__ == '__main__':
         x = x + mu
         c[:, :, i] = x
 
-    b = np.uint8(c * 255.)
-    a = Image.fromarray(b)
-    ax2 = plt.subplot(1, 2, 2)
-    ax2.set_title('Compressed')
-    ax2.imshow(a)
-    plt.show()
+    # b = np.uint8(c * 255.)
+    # a = Image.fromarray(b)
+    # ax2 = plt.subplot(1, 2, 2)
+    # ax2.set_title('Compressed')
+    # ax2.imshow(a)
+    # plt.show()
+
