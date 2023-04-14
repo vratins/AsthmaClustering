@@ -19,6 +19,18 @@ def pca(X, D):
     return final
 
 
+def sklearn_pca(X, D):
+    """
+    Your PCA implementation should be equivalent to this function.
+    Do not use this function in your implementation!
+    """
+    from sklearn.decomposition import PCA
+    p = PCA(n_components=D, svd_solver='full')
+    trans_pca = p.fit_transform(X)
+    X = p.inverse_transform(trans_pca)
+    return X
+
+
 if __name__ == '__main__':
     X = pd.read_csv("normdataBAL0715.txt", sep = '\t', skiprows= range(1001, 45015))
     print(X)
