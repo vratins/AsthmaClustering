@@ -37,29 +37,5 @@ if __name__ == '__main__':
     D = 2
 
 
-# if __name__ == '__main__':
-#     D = 256
 
-#     a = Image.open('data/20180108_171224.jpg').convert('RGB')
-#     ax1 = plt.subplot(1, 2, 1)
-#     ax1.set_title('Original')
-#     ax1.imshow(a)
-#     b = np.array(a)
-#     c = b.astype('float') / 255.
-#     for i in range(3):
-#         x = c[:, :, i]
-#         mu = np.mean(x)
-#         x = x - mu
-#         x_true = sklearn_pca(x, D)
-#         x = pca(x, D)
-#         assert np.allclose(x, x_true, atol=0.05)  # Test your results
-#         x = x + mu
-#         c[:, :, i] = x
-
-#     b = np.uint8(c * 255.)
-#     a = Image.fromarray(b)
-#     ax2 = plt.subplot(1, 2, 2)
-#     ax2.set_title('Compressed')
-#     ax2.imshow(a)
-#     plt.show()
 
