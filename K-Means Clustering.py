@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Generates the Clusters 
 def generate_clusters(data, means):
     clusters = [[] for _ in range(means.shape[1])] #generating list of clusters 
     for i in range(data.shape[0]):
@@ -10,6 +11,7 @@ def generate_clusters(data, means):
     return clusters
 
 
+# Updates the clusters and determines if convergence has or has not reached convergence
 def update_clusters(data, clusters, means):
     converged = True #setting a converge variable to check whether the means change after updating
     for i in range(len(clusters)):
@@ -22,7 +24,7 @@ def update_clusters(data, clusters, means):
         means[:, i] = new_mean
     return converged, means
 
-
+# Main program that generates clusters until either convergence has been reached or max iterations has been reached
 def k_means(data,means, k, max_iterations):
     iterations = 0
     obj_values = []
@@ -42,6 +44,7 @@ def k_means(data,means, k, max_iterations):
         iterations += 1
     return clusters, means, obj_values
 
+# 
 def euclidean_distance(x, y):
     return np.linalg.norm(x - y)
 
