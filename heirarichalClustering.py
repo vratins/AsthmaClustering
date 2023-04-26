@@ -1,0 +1,1 @@
+clusters = 3 #Severe Asthmatic, Asthmatic, Not Ashthmatic
