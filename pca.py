@@ -32,7 +32,12 @@ def sklearn_pca(X, D):
 
 
 if __name__ == '__main__':
+<<<<<<< Updated upstream
     X = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', usecols=range(2,154))
+=======
+    X = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', nrows= 1000, usecols = range(2, 155))
+    print(X)
+>>>>>>> Stashed changes
     D = 2
     pca_final=pca(X, D)
     pca_sklearn=sklearn_pca(X, D)
