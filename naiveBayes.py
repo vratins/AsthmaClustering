@@ -9,19 +9,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns 
 
-# rows: samples 680
-# cols = genes 150
-# add another col for labels
-# labels can be derived: NC: control, SA: severe, notSA, VSA
-# .index.values
 
-# 1st col usesless, remove the first col
-
-#dataSet = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', nrows= 1000, usecols = range(2, 156)).T
+# --------------------------------------------------------------------------------------------------------------------------------------------------
 dataSet = pd.read_csv("filtered_data_BAL.csv", usecols = range(1,155)).T
 dataSet["Labels"] = 0
-
+# rows: gene names, using 154 rows
+# cols: samples, 2307 cols
 
 dataI = dataSet.index.values
 for i in range(len(dataSet)):
@@ -33,25 +28,40 @@ for i in range(len(dataSet)):
         dataSet["Labels"][i] = 2
     elif dataI[i].find("_VSA_") != -1:
         dataSet["Labels"][i] = 3
-#print(dataSet)
 
-# shuffle the data  --> shuffle rows 
-#shuffledDataSet = dataSet.sample(frac = 1)
-X = dataSet.iloc[:,:-1].to_numpy() 
-y = dataSet.iloc[:,-1:].to_numpy()
+X = dataSet.iloc[:,:-1]     # 154 rows x 2306 cols  
+y = dataSet.iloc[:,-1:]     # 154 rows x 1 col
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# Split data for test and train
 
 XTrain, XTest, yTrain, yTest = train_test_split(
-    X, y, test_size = 0.20, random_state =125, shuffle = True)
+    X, y, test_size = 0.20, random_state = 125, shuffle = True)
 
+# XTest:    31 rows x 2306 cols
+# XTrain:   123 rows x 2306 cols
+# yTest:    31 rows x 1 col
+# yTrain:   123 rows x 1 col
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# Gaussian Naive Bayes Model
 guassianModel = GaussianNB()
 guassianModel.fit(XTrain, yTrain)
+yPred = guassianModel.predict(XTest)    # 31 predictions
 
-
-yPred = guassianModel.predict(XTest)
-
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# Naive Bayes Classifier Accuracy 
 accuray = accuracy_score(yPred, yTest)
 f1 = f1_score(yPred, yTest, average="weighted")
-
 print("Accuracy:", accuray)
 print("F1 Score:", f1)
+print("Naive Bayes score: ",guassianModel.score(XTest, yTest))
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# Plotting
+matrix = confusion_matrix(yTest, yPred)
+disp = ConfusionMatrixDisplay(confusion_matrix=matrix)
+disp = disp.plot(cmap=plt.cm.Blues,values_format='g')
+plt.show()
+
 
