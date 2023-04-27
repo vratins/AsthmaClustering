@@ -14,6 +14,9 @@ import matplotlib.pyplot as plt
 # add another col for labels
 # labels can be derived: NC: control, SA: severe, notSA, VSA
 # .index.values
+
+# 1st col usesless, remove the first col
+
 dataSet = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', nrows= 1000, usecols = range(2, 156)).T
 dataSet["Labels"] = 0
 
@@ -29,7 +32,9 @@ for i in range(len(dataSet)):
         dataSet["Labels"][i] = 3
 print(dataSet)
 
-
+XTrain, XTest, yTrain, yTest = train_test_split(
+    X, y, test_size=0.33, random_state=125
+)
 
 
 
