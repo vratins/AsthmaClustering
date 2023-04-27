@@ -17,7 +17,8 @@ import matplotlib.pyplot as plt
 
 # 1st col usesless, remove the first col
 
-dataSet = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', nrows= 1000, usecols = range(2, 156)).T
+#dataSet = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', nrows= 1000, usecols = range(2, 156)).T
+dataSet = pd.read_csv("filtered_data_BAL.csv", usecols = range(1,155)).T
 dataSet["Labels"] = 0
 
 dataI = dataSet.index.values
@@ -30,74 +31,25 @@ for i in range(len(dataSet)):
         dataSet["Labels"][i] = 2
     elif dataI[i].find("_VSA_") != -1:
         dataSet["Labels"][i] = 3
-print(dataSet)
+#print(dataSet)
 
 # shuffle the data  --> shuffle rows 
-shuffledDataSet = dataSet.sample(frac = 1)
-#print(shuffledDataSet)
-
-X = shuffledDataSet.iloc[:,:-1]
-y = shuffledDataSet.iloc[:,-1:]
-print(X)
-print(y)
+#shuffledDataSet = dataSet.sample(frac = 1)
+X = dataSet.iloc[:,:-1] 
+y = dataSet.iloc[:,-1:]
 
 XTrain, XTest, yTrain, yTest = train_test_split(
-    X, y, test_size=0.33, random_state=125
-)
+    X, y, test_size = 0.20, random_state =125, shuffle = True)
+
+guassianModel = GaussianNB()
+guassianModel.fit(XTrain, yTrain)
 
 
+yPred = guassianModel.predict(XTest)
 
+accuray = accuracy_score(yPred, yTest)
+f1 = f1_score(yPred, yTest, average="weighted")
 
-
-
-
-
-
-
-
-
-
-
-
-
-# control = dataSet[dataSet.diagnosis == 'C']
-# severe = dataSet[dataSet.diagnosis == 'SA']
-# notSevere = dataSet[dataSet.diagnosis == 'notSA']
-# verySevere = dataSet[dataSet.diagnosis == 'vSA']
-
-
-
-
-# dataSet.diagnosis = [0 if i == "C" in dataSet.diagnosis]
-# dataSet.diagnosis = []
-
-# dаtаSet.diаgnоsis = [1 if i== "M" else 0 fоr i in dаtаset.diаgnоsis]
-
-#plt.title("Control vs Benign Tumor")
-# plt.xlabel("Radius Mean")
-# plt.ylabel("Texture Mean")
-# plt.scatter(control.radius_mean, M.texture_mean, color = "red", label = "Malignant", alpha = 0.3)
-# plt.scatter(B.radius_mean, B.texture_mean, color = "lime", label = "Benign", alpha = 0.3)
-# plt.legend()
-# plt.show()
-
-
-
-
-
-# XTrain, XTest, yTrain, yTest = train_test_split(
-#     X, y, test_size=0.33, random_state=125
-# )
-
-# guassianModel = GaussianNB()
-# guassianModel.fit(XTrain, yTrain)
-
-
-# yPred = guassianModel.predict(XTest)
-
-# accuray = accuracy_score(yPred, yTest)
-# f1 = f1_score(yPred, yTest, average="weighted")
-
-# print("Accuracy:", accuray)
-# print("F1 Score:", f1)
+print("Accuracy:", accuray)
+print("F1 Score:", f1)
 
