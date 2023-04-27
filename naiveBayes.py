@@ -8,6 +8,7 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 import matplotlib.pyplot as plt
+import numpy as np
 
 # rows: samples 680
 # cols = genes 150
@@ -20,6 +21,7 @@ import matplotlib.pyplot as plt
 #dataSet = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', nrows= 1000, usecols = range(2, 156)).T
 dataSet = pd.read_csv("filtered_data_BAL.csv", usecols = range(1,155)).T
 dataSet["Labels"] = 0
+
 
 dataI = dataSet.index.values
 for i in range(len(dataSet)):
@@ -35,8 +37,8 @@ for i in range(len(dataSet)):
 
 # shuffle the data  --> shuffle rows 
 #shuffledDataSet = dataSet.sample(frac = 1)
-X = dataSet.iloc[:,:-1] 
-y = dataSet.iloc[:,-1:]
+X = dataSet.iloc[:,:-1].to_numpy() 
+y = dataSet.iloc[:,-1:].to_numpy()
 
 XTrain, XTest, yTrain, yTest = train_test_split(
     X, y, test_size = 0.20, random_state =125, shuffle = True)
