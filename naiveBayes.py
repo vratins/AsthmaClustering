@@ -10,6 +10,8 @@ from sklearn.naive_bayes import GaussianNB
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
