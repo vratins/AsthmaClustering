@@ -48,16 +48,6 @@ def k_means(data,means, k, max_iterations):
 def euclidean_distance(x, y):
     return np.linalg.norm(x - y)
 
-# Data Processing
-data = np.loadtxt('hip1000.txt', delimiter=',', dtype=float)
-means = np.loadtxt('test_mean.txt')
-data = np.loadtxt('hip1000.txt', delimiter=',', dtype=float)
-data = data.T
-
-# 
-clusters, means, obj_values = k_means(data,means, 3, 50)
-min_obj=obj_values[-1]
-
 
 def random_clusters(data,k):
     means_random = np.random.randint(1,data.shape[0]+1,size=k)
@@ -66,6 +56,7 @@ def random_clusters(data,k):
         means_array[:,i]=data[means_random[i],:]
     clusters, means, obj_values = k_means(data, means_array, k, 50)
     return clusters, means, obj_values
+
 
 
 clusters,means,obj_values=random_clusters(data,3)
