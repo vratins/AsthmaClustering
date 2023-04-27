@@ -58,13 +58,6 @@ data = data.T
 clusters, means, obj_values = k_means(data,means, 3, 50)
 min_obj=obj_values[-1]
 
-# Plotting the Objective Values
-# plt.plot(range(1, len(obj_values)+1), obj_values)
-# plt.title('K-means Objective over Iterations')
-# plt.xlabel('Iterations - Obj Value: {x}'.format(x=min_obj))
-# plt.ylabel('Objective')
-# plt.savefig("4A.png")
-# plt.show()
 
 def random_clusters(data,k):
     means_random = np.random.randint(1,data.shape[0]+1,size=k)
