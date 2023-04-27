@@ -32,6 +32,15 @@ for i in range(len(dataSet)):
         dataSet["Labels"][i] = 3
 print(dataSet)
 
+# shuffle the data  --> shuffle rows 
+shuffledDataSet = dataSet.sample(frac = 1)
+#print(shuffledDataSet)
+
+X = shuffledDataSet.iloc[:,:-1]
+y = shuffledDataSet.iloc[:,-1:]
+print(X)
+print(y)
+
 XTrain, XTest, yTrain, yTest = train_test_split(
     X, y, test_size=0.33, random_state=125
 )
