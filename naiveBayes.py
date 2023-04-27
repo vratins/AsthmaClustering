@@ -16,8 +16,9 @@ from sklearn.datasets import make_classification
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 dataSet = pd.read_csv("filtered_data_BAL.csv", usecols = range(1,155)).T
+dataSet = dataSet.drop(dataSet.index[[101, 102]]) 
 dataSet["Labels"] = 0
-# rows: gene names, using 154 rows
+# rows: gene names, using 152 rows
 # cols: samples, 2307 cols
 
 dataI = dataSet.index.values
@@ -28,11 +29,9 @@ for i in range(len(dataSet)):
         dataSet["Labels"][i] = 1
     elif dataI[i].find("_notSA_") != -1:
         dataSet["Labels"][i] = 2
-    elif dataI[i].find("_VSA_") != -1:
-        dataSet["Labels"][i] = 3
 
-X = dataSet.iloc[:,:-1]     # 154 rows x 2306 cols  
-y = dataSet.iloc[:,-1:]     # 154 rows x 1 col
+X = dataSet.iloc[:,:-1]     # 152 rows x 2306 cols  
+y = dataSet.iloc[:,-1:]     # 152 rows x 1 col
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # Split data for test and train
@@ -41,9 +40,9 @@ XTrain, XTest, yTrain, yTest = train_test_split(
     X, y, test_size = 0.20, random_state = 125, shuffle = True)
 
 # XTest:    31 rows x 2306 cols
-# XTrain:   123 rows x 2306 cols
+# XTrain:   121 rows x 2306 cols
 # yTest:    31 rows x 1 col
-# yTrain:   123 rows x 1 col
+# yTrain:   121 rows x 1 col
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # Gaussian Naive Bayes Model
