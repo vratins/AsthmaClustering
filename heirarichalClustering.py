@@ -52,8 +52,8 @@ def heirarichalClustering (data, clusterNum):
     # print(clusters)
     return clusters
 
-# MAIN
 
+# MAIN
 # different datas lol choose ur fav at this point, jk be smart
 small_data = pd.read_csv("Data/BAL/TestBALData.tsv", sep = '\t', usecols=range(2,6)).T
 total_data = pd.read_csv("Data/BAL/normdataBAL0715.txt", sep = '\t', usecols=range(2,6)).T
@@ -67,9 +67,10 @@ data = filtered_data # change based on data
 clusters = heirarichalClustering(data, clusterNum)
 distMatrix = distanceMatrix(data)
 Z = linkage(distMatrix, method='average')
+print("Self:", Z)
 plt.figure(figsize=(10, 5))
-dendrogram(Z, labels=['Sample {}'.format(i) for i in range(data.shape[0])])
-plt.xlabel('Sample Index')
+dendrogram(Z)
+plt.xlabel('Samples')
 plt.ylabel('Distance')
 plt.title('Dendrogram of Implemented Heirarichal Clustering')
 plt.show()
@@ -93,6 +94,7 @@ SKclusters, SKclusterLabels = SKheirarichalClustering(data, clusterNum)
 #     assignedClusters.append(indivCluster)
 SKclusters.fit(data)
 Z = linkage(SKclusters.children_, method='average')
+print("SK:", Z)
 plt.figure(figsize=(10, 8))
 dendrogram(Z)
 plt.title('Dendrogram of SciKits Hierarchical Clustering')
