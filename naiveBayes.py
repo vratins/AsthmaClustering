@@ -12,6 +12,7 @@ import numpy as np
 import seaborn as sns 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
+from sklearn.metrics import roc_curve, roc_auc_score
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +67,7 @@ kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
 accuracy_scores = []
 f1_scores = []
+roc_auc_scores = []
 
 # loop over each fold
 for train_index, test_index in kf.split(X):
@@ -96,9 +98,12 @@ print("Average F1 Score:", avg_f1)
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # Plotting
+
 matrix = confusion_matrix(yTest, yPred)
 disp = ConfusionMatrixDisplay(confusion_matrix=matrix)
 disp = disp.plot(cmap=plt.cm.Blues,values_format='g')
 plt.show()
+
+
 
 
